@@ -1,5 +1,9 @@
-# go-simple-bank
-Following Tech School Backend Masterclass to design, develop, and deploy a complete backend system from scratch using Golang, PostgreSQL and Docker (by the moment).
+# Simple-Bank-Backend
+In this backend project, I designed, developed and deployed a backend web service for a simple bank with Golang, Postgres, Gin, Kubernetes, gRPC, AWS.
+It will provide APIs for the frontend to do the following things:
+- Create and manage bank accounts.
+- Record all balance changes to each of the accounts.
+- Perform a money transfer between 2 accounts.
 
 ## How to play:
 #### 1. Clone repo
