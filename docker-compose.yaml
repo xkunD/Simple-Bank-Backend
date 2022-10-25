@@ -1,0 +1,26 @@
+version: "3.9"
+
+# Docker automatically create a network and attach the services (containers) to it.
+
+# DB
+services:
+  postgres:
+    image: postgres:alpine #Image to wire up db
+    environment: 
+      - POSTGRES_USER=root 
+      - POSTGRES_PASSWORD=toor
+      - POSTGRES_DB=simple-bank
+
+# BANK
+  api: 
+    build:
+      context: . # Workdir relative to root in this case.
+      dockerfile: Dockerfile # Build BANK from Dockerfile of the root.
+    ports:
+      - "8080:8080"  # Exposing port so we can call BANK from outside the container
+    environment: # Establish connection between BANK and DB
+      - DB_SOURCE=postgresql://root:toor@postgres/simple-bank?sslmode=disable
+    depends_on: 
+      - postgres # Waits that postgres is ready and started before launching BANK api.
+    entrypoint: ["/app/wait-for.sh", "postgres:5432", "--", "/app/start.sh"] # Runs start.sh once postgres is ready.
+    command:  [ "/app/main" ]

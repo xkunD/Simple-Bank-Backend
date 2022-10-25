@@ -1,0 +1,19 @@
+# Base image
+FROM golang:1.18.2-alpine
+
+# Working directory inside the image
+WORKDIR /app
+
+# Copy everything from the root of our project to workdir
+COPY . .
+
+# Build our app to a binary single executable file.
+RUN go build -o main main.go
+
+# Expose ports used
+EXPOSE 8080
+
+# Define default CMD to run when the container starts
+CMD [ "/app/main" ]
+
+## OUTPUT: 529MB
